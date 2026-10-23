@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FokusKu</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-mode="focus">
+  <header class="appbar">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="3.5"/><path d="M16 8v8l5 3" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+      <span>FokusKu</span>
+    </div>
+    <time id="today-date"></time>
+  </header>
+
+  <main class="layout">
+    <section class="card timer" aria-label="Timer">
+      <div class="modes" role="tablist">
+        <button role="tab" data-mode="focus" class="active">Fokus</button>
+        <button role="tab" data-mode="short">Istirahat pendek</button>
+        <button role="tab" data-mode="long">Istirahat panjang</button>
+      </div>
+
+      <div class="dial">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <circle class="track" cx="100" cy="100" r="90"/>
+          <circle id="ring" class="progress" cx="100" cy="100" r="90"/>
+        </svg>
+        <div class="readout">
+          <output id="time">25:00</output>
+          <span id="current-task">Belum ada tugas dipilih</span>
+        </div>
+      </div>
+
+      <div id="cycle" class="cycle" aria-hidden="true"></div>
+
+      <div class="controls">
+        <button id="reset" class="ghost" aria-label="Ulangi sesi">Ulangi</button>
+        <button id="start" class="primary">Mulai</button>
+        <button id="skip" class="ghost" aria-label="Lewati sesi">Lewati</button>
+      </div>
+      <p class="hint">Tekan <kbd>Spasi</kbd> untuk mulai atau jeda</p>
+
+      <details class="settings">
+        <summary>Atur durasi</summary>
+        <form id="settings-form">
+          <label>Fokus (menit) <input type="number" name="focus" min="1" max="120"></label>
+          <label>Istirahat pendek <input type="number" name="short" min="1" max="60"></label>
+          <label>Istirahat panjang <input type="number" name="long" min="1" max="120"></label>
+          <label>Istirahat panjang tiap <input type="number" name="every" min="2" max="10"></label>
+          <button type="submit">Simpan durasi</button>
+        </form>
+      </details>
+    </section>
+
+    <section class="card tasks" aria-label="Daftar tugas">
+      <h2>Tugas hari ini</h2>
+      <form id="task-form">
+        <input id="task-input" type="text" placeholder="Apa yang mau diselesaikan?" maxlength="80" autocomplete="off" required>
+        <button type="submit" class="primary">Tambah</button>
+      </form>
+      <ul id="task-list"></ul>
+      <p id="task-empty" class="empty">Belum ada tugas. Tulis satu di atas, lalu pilih untuk mulai fokus.</p>
+      <button id="clear-done" class="link">Hapus tugas selesai</button>
+    </section>
+
+    <section class="card stats" aria-label="Statistik fokus">
+      <h2>Statistik</h2>
+      <dl class="totals">
+        <div><dt>Sesi hari ini</dt><dd id="st-sessions">0</dd></div>
+        <div><dt>Menit fokus</dt><dd id="st-minutes">0</dd></div>
+        <div><dt>Runtun hari</dt><dd id="st-streak">0</dd></div>
+      </dl>
+      <div id="chart" class="chart" role="img" aria-label="Menit fokus 7 hari terakhir"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
